@@ -63,9 +63,9 @@ impl Default for GuessApp {
     }
 }
 
-// Implement the public eframe::App trait
+
 impl eframe::App for GuessApp {
-    // draw the UI each frame
+
     fn update(&mut self, ctx: &egui::Context, _frame: &mut Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.add_space(10.0);
@@ -80,7 +80,7 @@ impl eframe::App for GuessApp {
 
                         ui.add_space(8.0);
 
-                        // slider to change max_range
+
                         ui.horizontal(|ui| {
                             ui.label("Max:");
                             if ui.add(egui::Slider::new(&mut self.max_range, 10..=1000)).changed() {
@@ -91,14 +91,14 @@ impl eframe::App for GuessApp {
 
                         ui.add_space(6.0);
 
-                        // input + buttons
+
                         ui.horizontal(|ui| {
                             let text = ui.add(
                                 egui::TextEdit::singleline(&mut self.input)
                                     .hint_text("Type a number and press Enter or Guess"),
                             );
 
-                            // new input API — use the closure form
+
                             if text.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter)) {
                                 if !self.won {
                                    self.check_guess();
@@ -116,7 +116,6 @@ impl eframe::App for GuessApp {
 
                         ui.add_space(8.0);
 
-                        // message + secret (if won)
                         if self.won {
                             ui.colored_label(egui::Color32::from_rgb(30, 150, 60), &self.message);
                             ui.label(format!("Secret was: {}", self.secret));
@@ -135,13 +134,12 @@ impl eframe::App for GuessApp {
                 });
         });
 
-        // keep UI responsive
+
         ctx.request_repaint_after(std::time::Duration::from_millis(16));
     }
 }
 
 fn main() {
-    // Use default native options (remove or change if your eframe version supports explicit window sizing)
     let options = NativeOptions::default();
 
     eframe::run_native(
